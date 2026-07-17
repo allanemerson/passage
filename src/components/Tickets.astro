@@ -1,0 +1,313 @@
+---
+import { TICKET_LINK, EASTERN_TZ } from "../constants.ts";
+import Parking from "../assets/icons/parking.svg";
+import Users from "../assets/icons/users.svg";
+import User from "../assets/icons/user.svg";
+import Ticket from "../assets/icons/ticket.svg";
+
+// Returns the current date as a YYYY-MM-DD string in Eastern time for comparison.
+const nowEastern = new Date().toLocaleDateString("en-CA", {
+  timeZone: EASTERN_TZ,
+});
+
+function getTicketStatus(ticket: { onSaleDate: string; available: boolean }) {
+  if (ticket.onSaleDate > nowEastern) return "coming-soon";
+  return ticket.available ? "on-sale" : "sold-out";
+}
+
+// Format a YYYY-MM-DD date string for display in Eastern time.
+function formatEasternDate(dateStr: string): string {
+  return new Date(`${dateStr}T12:00:00Z`).toLocaleDateString("en-US", {
+    timeZone: EASTERN_TZ,
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+const admissionTickets = [
+  {
+    title: "Early Bird",
+    description:
+      "Good for entry beginning at 10am Friday September 18. Buy early and save $16.50 off the regular price.",
+    price: 113.5,
+    onSaleDate: "2026-07-01",
+    available: true,
+  },
+  {
+    title: "General Admission",
+    description: "Good for entry beginning at 10am Friday September 18. ",
+    price: 130.0,
+    onSaleDate: "2026-08-01",
+    available: true,
+  },
+  {
+    title: "Top Supporter",
+    description:
+      "Doing well right now and want to contribute a little extra to the Art and Spirit that is Passage Gathering? This is a simple way to do it. Get access to the Festival a day early and the Poolside Pre-party Thursday night. Good for entry beginning at 10am Thursday September 17.",
+    price: 283.75,
+    onSaleDate: "2026-07-01",
+    available: true,
+  },
+];
+const campingPasses = [
+  {
+    title: "Open Camping",
+    description:
+      "Our most affordable camping pass, grants access to open camping with a variety of sites available. Sites North of the Barn in the woods require that your vehicle be moved to Parking after unloading. Sites in the field North of the Barn allow for car camping. You will have your choice at the gate, first come first served.",
+    price: 68.1,
+    onSaleDate: "2026-07-01",
+    available: true,
+    guests: 1,
+    guestsDescription:
+      "1 pass is good for 1 person, so everyone at your site will need one.",
+    parking:
+      "Car camping is first come, first served. Other locations will require you to park in the designated parking area after you unload your gear at your site.",
+  },
+  {
+    title: "Premium Tent Camping",
+    description:
+      "Likely to be our most popular camping category. Grants access to Premium campsites near the center of the festival with power and water hookups dispersed throughout the area. Sites are first come first served and will require that those wishing to camp together arrive together to guarantee placement. Pop-up canopies are limited to one per group in this area as space is limited and precious.",
+    price: 90.8,
+    onSaleDate: "2026-07-01",
+    available: true,
+    guests: 1,
+    guestsDescription:
+      "1 pass is good for 1 person, so everyone at your site will need one.",
+    parking: "Park in the designated area after you've dropped off your gear.",
+  },
+  {
+    title: "Premium RV Site",
+    description:
+      "Reservation of a premium RV Site with hookups. If you have more than 4 persons in your RV, the additional persons must buy an Open Camping Pass, but may sleep in your RV as planned. This is how we account for paying the venue, so please help us abide.",
+    price: 272.4,
+    onSaleDate: "2026-07-01",
+    available: true,
+    guests: 4,
+    guestsDescription:
+      "Includes 4 camping passes for your group that you can distribute to those sleeping in your RV. If your group is less than 4, the additional passes are forfeit and non-transferrable. ",
+    parking:
+      "Every person must show a Ticket and a Camping Pass at the gate, so if you're arriving separately, make sure each person in your party has been sent their ticket from this package. Additional vehicles will required to park in the designated area.",
+  },
+  {
+    title: "Primitive RV Site",
+    description:
+      "Reservation of a Primitive RV Site with NO hookups. These are best suited for smaller Campers, Camper Vans, and Schoolies. If you have more than 2 persons in your RV, the additional persons must buy an Open Camping Pass, but may sleep in your RV as planned. This is how we account for paying the venue, so please help us abide.",
+    price: 136.2,
+    onSaleDate: "2026-07-01",
+    available: true,
+    guests: 2,
+    guestsDescription:
+      "Includes 2 camping passes that you can distribute to those sleeping in your RV. If it's only you, the 2nd pass is forfeit and non-transferrable.",
+    parking:
+      "Every person must show a Ticket and a Camping Pass at the gate, so if you're arriving separately, make sure each person in your party has been sent their ticket from this package. Additional vehicles will required to park in the designated area.",
+  },
+  {
+    title: "Glamping Tent Rental",
+    description:
+      "VIP vibes! This is reservation of 1 of just 5 specialty Glamping tents set up for 2 persons and waiting on you to arrive in style. Good for 3 nights, Friday-Monday, check out is Monday at 10am. These cabin style tents include a bed, refrigerator, private power access, and portable air conditioner. No joke.",
+    price: 454,
+    onSaleDate: "2026-07-01",
+    available: true,
+    guests: 2,
+    guestsDescription: "Includes 2 camping passes for your group.",
+    parking:
+      "Once you unload in your glamping tent, you will need to move your car to the designated parking area.",
+  },
+  {
+    title: "Tiny-house Cabin Rental",
+    description:
+      "VIP vibes! This is reservation of 1 of just 5 Tiny House Cabins set up for 2 persons and waiting on you to arrive in style. Good for 3 nights, Friday-Monday. These are BRAND NEW at FarmCamp and packed with nice amenities.",
+    price: 681,
+    onSaleDate: "2026-07-01",
+    available: true,
+    guests: 3,
+    guestsDescription: "Includes 3 camping passes for your group.",
+    parking:
+      "Once you unload your gear into the cabin, you will need to move your car to the designated parking area.",
+  },
+];
+---
+
+<section id="tickets" class="tickets">
+  <div class="container">
+    <h2>Tickets</h2>
+    <p class="section-description">
+      This event requires an admission ticket AND a camping pass for each
+      attendee.
+    </p>
+    <p class="section-description">
+      <a href={TICKET_LINK} target="_blank" class="btn"
+        ><Ticket /> Buy Tickets</a
+      >
+    </p>
+
+    <h3>Admission</h3>
+    <table class="tickets-tiers">
+      <tbody>
+        {
+          admissionTickets.map((ticket) => {
+            const status = getTicketStatus(ticket);
+            return (
+              <tr class={status === "sold-out" ? "sold-out" : ""}>
+                <th>{ticket.title}</th>
+                <td class="ticket-description">{ticket.description}</td>
+                <td class="price">${ticket.price.toFixed(2)}</td>
+                <td class="status">
+                  {status === "coming-soon" &&
+                    `${formatEasternDate(ticket.onSaleDate)}`}
+                  {status === "on-sale" && "On Sale"}
+                  {status === "sold-out" && "Sold Out"}
+                </td>
+              </tr>
+            );
+          })
+        }
+      </tbody>
+    </table>
+    <h3>Camping Passes</h3>
+    <table class="tickets-tiers">
+      {
+        campingPasses.map((ticket) => {
+          const status = getTicketStatus(ticket);
+          return (
+            <tr class={status === "sold-out" ? "sold-out" : ""}>
+              <th>{ticket.title}</th>
+              <td>
+                <p class="ticket-description">{ticket.description}</p>
+                <p class="ticket-detail">
+                  {ticket.guests > 1 ? <Users /> : <User />}
+                  {ticket.guestsDescription}
+                </p>
+                <p class="ticket-detail">
+                  <Parking />
+                  {ticket.parking}
+                </p>
+              </td>
+              <td class="price">${ticket.price.toFixed(2)}</td>
+              <td class="status">
+                {status === "coming-soon" &&
+                  `On sale ${formatEasternDate(ticket.onSaleDate)}`}
+                {status === "on-sale" && "On Sale"}
+                {status === "sold-out" && "Sold Out"}
+              </td>
+            </tr>
+          );
+        })
+      }
+    </table>
+    <p class="disclaimer">
+      Check-out is Monday September 21, no later than noon.
+    </p>
+    <p class="disclaimer">Passage is a rain or shine event.</p>
+    <p class="disclaimer">
+      Other ticket conditions apply. See ticket details for more information.
+    </p>
+  </div>
+
+  <style lang="scss">
+    h3 {
+      margin: 0;
+    }
+    .tickets {
+      @media (max-width: #{utils.getMaxBreakpoint('lg')}) {
+        .btn {
+          display: flex;
+        }
+      }
+    }
+
+    .disclaimer {
+      text-wrap: balance;
+      text-align: center;
+      font-size: 80%;
+      opacity: 0.9;
+    }
+
+    .tickets-tiers {
+      border-collapse: collapse;
+      flex: 1;
+      margin-bottom: 3em;
+      th,
+      td {
+        padding-block: #{utils.makeClamp(10, 30)};
+        padding-inline: 1em;
+        border-bottom: solid 1px var(--color-light-gray);
+        vertical-align: top;
+      }
+
+      tr:last-child {
+        th,
+        td {
+          border: 0;
+        }
+      }
+
+      th {
+        text-align: left;
+        font-weight: 400;
+        white-space: nowrap;
+      }
+
+      strong {
+        color: var(--color-gold);
+      }
+
+      @media (max-width: #{utils.getMaxBreakpoint('lg')}) {
+        display: block;
+        tr,
+        td,
+        th {
+          display: block;
+          border: 0;
+          text-align: left;
+          padding: 0.25em 0;
+        }
+
+        tr {
+          padding-block: 2em;
+          border-bottom: solid 1px var(--color-light-gray);
+        }
+      }
+    }
+    .price {
+      position: relative;
+      text-align: center;
+
+      @media (min-width: #{utils.getBreakpoint('lg')}) {
+        padding-inline: 20px;
+      }
+    }
+    .status {
+      color: var(--color-gold);
+      white-space: nowrap;
+    }
+    .sold-out {
+      color: #444;
+
+      th,
+      td.price {
+        text-decoration: line-through;
+      }
+    }
+    .ticket-description {
+      font-size: #{utils.makeRem(16)};
+      margin-top: 0;
+    }
+    .ticket-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 1em;
+      font-size: #{utils.makeRem(16)};
+      margin-top: 1em;
+
+      svg {
+        min-width: 24px;
+      }
+    }
+    .section-description {
+      text-align: center;
+      margin-bottom: 2em;
+    }
+  </style>
+</section>

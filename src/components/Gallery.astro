@@ -1,0 +1,216 @@
+---
+import { Image } from "astro:assets";
+import Previous from "../assets/icons/previous.svg";
+import Next from "../assets/icons/next.svg";
+const imageFiles = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/gallery/*.{jpeg,jpg,png,gif,webp,svg}",
+  { eager: true },
+);
+const images = Object.values(imageFiles).map((file) => file.default);
+---
+
+<section id="gallery" class="gallery">
+  <ul class="items">
+    {
+      images.map((img) => (
+        <li class="item">
+          <button
+            class="item__trigger"
+            popovertarget="gallery-modal"
+            data-index={images.indexOf(img)}
+          >
+            <Image
+              class="item__image"
+              src={img}
+              alt=""
+              width={300}
+              height={300}
+            />
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<div popover id="gallery-modal">
+  <div class="gallery-carousel swiper">
+    <div class="swiper-wrapper">
+      {
+        images.map((img) => (
+          <div class="swiper-slide">
+            <Image src={img} alt="Gallery item" width={900} height={900} />
+          </div>
+        ))
+      }
+    </div>
+    <div class="swiper-button-prev">
+      <Previous />
+    </div>
+    <div class="swiper-button-next">
+      <Next />
+    </div>
+  </div>
+  <button
+    class="popover__close"
+    popovertarget="gallery-modal"
+    popovertargetaction="hide"
+  >
+    <span class="visually-hidden">Close</span>
+    <svg
+      width="17"
+      height="18"
+      viewBox="0 0 17 18"
+      xmlns="http://www.w3.org/2000/svg"
+      ><g
+        stroke="currentColor"
+        stroke-width="2"
+        fill="none"
+        fill-rule="evenodd"
+        stroke-linecap="square"
+        ><path d="M1.444 16.565 15.556 2.393M1.414 2.423l14.172 14.112"
+        ></path></g
+      ></svg
+    >
+  </button>
+</div>
+
+<style lang="scss">
+  .gallery {
+    padding: 0;
+  }
+  .items {
+    @include utils.resetList;
+    display: grid;
+    gap: 1px;
+    grid-template-columns: repeat(2, 1fr);
+
+    @media (min-width: #{utils.getBreakpoint('lg')}) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (min-width: #{utils.getBreakpoint('xl')}) {
+      grid-template-columns: repeat(8, 1fr);
+    }
+  }
+
+  .item {
+    overflow: hidden;
+  }
+
+  .item__trigger {
+    display: block;
+    width: 100%;
+    &:hover {
+      .item__image {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .item__image {
+    transition: 0.3s;
+    width: 100%;
+  }
+
+  [popover] {
+    background: transparent;
+    opacity: 0;
+    width: 100vw;
+    min-height: 100vh;
+    place-content: center;
+    padding: 0;
+    border: 0;
+    transition:
+      opacity 0.5s,
+      overlay 0.5s allow-discrete,
+      display 0.5s allow-discrete;
+    margin: 0;
+
+    &:popover-open {
+      opacity: 1;
+
+      &::backdrop {
+        background-color: rgb(0 0 0 / 0.9);
+      }
+    }
+
+    &::backdrop {
+      background-color: rgb(0 0 0 / 0);
+      transition:
+        background-color 0.5s,
+        display 0.5s allow-discrete;
+    }
+  }
+
+  @starting-style {
+    [popover]:popover-open {
+      opacity: 0;
+
+      &::backdrop {
+        background-color: rgb(0 0 0 / 0);
+      }
+    }
+  }
+
+  .popover__close {
+    position: absolute;
+    right: var(--gutter);
+    top: var(--gutter);
+    color: var(--color-light-gold);
+    cursor: pointer;
+    z-index: 10;
+
+    &:hover {
+      color: white;
+    }
+  }
+  .gallery-carousel {
+    --swiper-theme-color: var(--color-light-gold);
+    --swiper-navigation-size: 90px;
+    --swiper-navigation-sides-offset: 30px;
+    width: 100%;
+  }
+  .swiper-slide {
+    img {
+      width: min(85vw, 900px);
+      margin-inline: auto;
+    }
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    transition: 0.3s;
+    &:hover {
+      color: white;
+    }
+  }
+</style>
+
+<script>
+  import Swiper from "swiper";
+  import { Navigation, EffectFade } from "swiper/modules";
+  import "swiper/css";
+  import "swiper/css/navigation";
+  import "swiper/css/effect-fade";
+
+  const swiperInstance = new Swiper(".gallery-carousel", {
+    modules: [Navigation, EffectFade],
+    speed: 1200,
+    effect: "fade",
+    fadeEffect: {
+      crossFade: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
+
+  const galleryModal = document.getElementById("gallery-modal");
+  galleryModal?.addEventListener("toggle", (event) => {
+    const trigger = event.source as HTMLElement;
+    const index = parseInt(trigger.dataset.index || "0", 10);
+    swiperInstance.slideTo(index, 0);
+  });
+</script>
