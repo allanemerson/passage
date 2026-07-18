@@ -1,0 +1,96 @@
+---
+import { EASTERN_TZ } from "../constants.ts";
+
+import Parking from "../assets/icons/parking.svg";
+import Users from "../assets/icons/users.svg";
+import User from "../assets/icons/user.svg";
+const { ticket, status } = Astro.props;
+function formatEasternDate(dateStr: string): string {
+  return new Date(`${dateStr}T12:00:00Z`).toLocaleDateString("en-US", {
+    timeZone: EASTERN_TZ,
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+---
+
+<div class={`ticket-card ${status}`}>
+  <h4 class="ticket-card__title">{ticket.title}</h4>
+  <div class="ticket-card__description">
+    {ticket.description.map((line: string) => <p>{line}</p>)}
+    {
+      ticket.guests && (
+        <p class="ticket-card__detail">
+          {ticket.guests > 1 ? <Users /> : <User />}
+          {ticket.guestsDescription}
+        </p>
+      )
+    }
+    <p class="ticket-card__detail">
+      <Parking />
+      {ticket.parking}
+    </p>
+  </div>
+  <div class="ticket-card__footer">
+    <p class="ticket-card__price">${ticket.price.toFixed(2)}</p>
+    <p class="ticket-card__status">
+      {
+        status === "coming-soon" &&
+          `On sale ${formatEasternDate(ticket.onSaleDate)}`
+      }
+      {status === "on-sale" && "On Sale"}
+      {status === "sold-out" && "Sold Out"}
+    </p>
+  </div>
+</div>
+
+<style is:global lang="scss">
+  .ticket-card {
+    border: solid 1px var(--color-light-gray);
+    border-radius: 4px;
+    padding: 1.5em;
+    font-size: #{utils.makeRem(18)};
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 3;
+
+    &.sold-out {
+      opacity: 0.5;
+    }
+
+    &__title {
+      font-size: #{utils.makeRem(24)};
+      border-bottom: solid 1px var(--color-gold);
+      margin-bottom: 0;
+    }
+
+    &__detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 1em;
+      font-size: #{utils.makeRem(16)};
+      margin-top: 1em;
+
+      svg {
+        min-width: 24px;
+      }
+    }
+
+    &__footer {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    &__price {
+      color: var(--color-gold);
+      font-size: #{utils.makeRem(24)};
+      margin: 0;
+    }
+    &__status {
+      margin: 0;
+      font-size: #{utils.makeRem(16)};
+    }
+  }
+</style>
