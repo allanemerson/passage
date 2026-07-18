@@ -181,7 +181,7 @@ const rentalPasses = [
     </div>
     <h2>Camping Passes</h2>
 
-    <h3>Tent Camping</h3>
+    <h3 class="cards-title">Tent Camping</h3>
     <div class="cards" style="--cols: 2">
       {
         tentPasses.map((ticket) => {
@@ -190,7 +190,7 @@ const rentalPasses = [
         })
       }
     </div>
-    <h3>RVs</h3>
+    <h3 class="cards-title">RVs</h3>
     <div class="cards" style="--cols: 2">
       {
         rvPasses.map((ticket) => {
@@ -199,7 +199,7 @@ const rentalPasses = [
         })
       }
     </div>
-    <h3>Rentals</h3>
+    <h3 class="cards-title">Rentals</h3>
     <div class="cards" style="--cols: 2">
       {
         rentalPasses.map((ticket) => {
@@ -232,6 +232,12 @@ const rentalPasses = [
   </div>
 </Layout>
 <style lang="scss">
+  .cards-title {
+    margin-bottom: 0.5em;
+    @media (max-width: #{utils.getMaxBreakpoint('lg')}) {
+      text-align: center;
+    }
+  }
   .cards {
     display: grid;
     gap: 12px;

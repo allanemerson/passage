@@ -72,7 +72,7 @@ const navItems = [
       </li>
     </ul>
     <ul class="navigation-actions">
-      <li class="navigation-item">
+      <li class="navigation-item hidden-xs">
         <a
           class="navigation-link navigation-link--icon"
           href={FACEBOOK_URL}
@@ -82,7 +82,7 @@ const navItems = [
           <FacebookIcon />
         </a>
       </li>
-      <li class="navigation-item">
+      <li class="navigation-item hidden-xs">
         <a
           class="navigation-link navigation-link--icon"
           href={DISCORD_URL}
@@ -147,9 +147,10 @@ const navItems = [
       center no-repeat;
     background-size: cover;
     transition: 0.3s ease-out;
-    width: 100%;
+    width: 100vw;
     height: calc(100vh - var(--navbar-height));
     z-index: 100;
+    box-sizing: border-box;
     @media (min-width: #{utils.getBreakpoint('lg')}) {
       display: flex;
       align-items: center;
@@ -272,4 +273,16 @@ const navItems = [
     updateNav();
     requestAnimationFrame(updateNav);
   })();
+
+  const toggle = document.querySelector(".navigation-toggle");
+  const navLinks = document.querySelectorAll(".navigation-link");
+  toggle?.addEventListener("click", (e) => {
+    e.preventDefault();
+    document.body.classList.toggle("nav-open");
+  });
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      document.body.classList.remove("nav-open");
+    });
+  });
 </script>

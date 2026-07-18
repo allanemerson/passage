@@ -189,6 +189,14 @@ if (title) {
     padding-top: var(--navbar-height);
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
+
+    &.nav-open {
+      overflow: hidden;
+
+      .navigation-items {
+        right: 0;
+      }
+    }
   }
   .hidden-lg {
     @media (min-width: #{utils.getBreakpoint('lg')}) {
@@ -232,16 +240,16 @@ if (title) {
   }
 
   h1 {
-    font-size: #{utils.makeRem(140)};
+    font-size: #{utils.makeClamp(90, 140)};
   }
   h2 {
-    font-size: #{utils.makeRem(100)};
+    font-size: #{utils.makeClamp(70, 100)};
   }
   h3 {
-    font-size: #{utils.makeRem(36)};
+    font-size: #{utils.makeClamp(24, 36)};
   }
   h4 {
-    font-size: #{utils.makeRem(24)};
+    font-size: #{utils.makeClamp(18, 24)};
   }
 
   p,
