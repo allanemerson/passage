@@ -1,37 +1,9 @@
 ---
 import { getImage } from "astro:assets";
-import bg from "../assets/images/bg-artists.jpg";
+import bg from "../assets/images/bg-artists.webp";
 
 const optimizedBg = await getImage({ src: bg });
-const artists = [
-  "Adina Renee",
-  "Akarsh ",
-  "Atibil ",
-  "Bobi Stevkovski",
-  "Bozzy",
-  "Chasing ",
-  "Corey Von Waters",
-  "DJ Oz",
-  "Domavik ",
-  "Double Helix",
-  "Emmerse",
-  "Entropy Ray",
-  "False Peaks",
-  "Frankenoz",
-  "Full Heart ",
-  "Gabriela Gonzalez",
-  "Jinnjah",
-  "Merrick",
-  "Ralo",
-  "Ramouz",
-  "Raskal",
-  "Scott Houston",
-  "Silent Duality",
-  "Silver Nova",
-  "The DJ Bri",
-  "Titino",
-  "Vitor",
-];
+const artists: string[] = [];
 ---
 
 <section
@@ -41,9 +13,16 @@ const artists = [
 >
   <div class="container">
     <h2>Line-up</h2>
-    <ul class="artists-list">
-      {artists.map((artist) => <li>{artist}</li>)}
-    </ul>
+    {
+      artists.length > 0 && (
+        <ul class="artists-list">
+          {artists.map((artist) => (
+            <li>{artist}</li>
+          ))}
+        </ul>
+      )
+    }
+    {artists.length === 0 && <p class="placeholder">Coming soon!</p>}
   </div>
 </section>
 
@@ -87,5 +66,10 @@ const artists = [
     font-size: #{utils.makeRem(25)};
     text-shadow: 0 0px 20px rgba(0, 0, 0, 0.9);
     margin-bottom: 3rem;
+  }
+
+  .placeholder {
+    font-size: #{utils.makeClamp(21, 24)};
+    color: white;
   }
 </style>

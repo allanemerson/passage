@@ -55,8 +55,11 @@ const images = Object.values(imageFiles).map((file) => file.default);
   }
   .image-strip {
     --swiper-theme-color: var(--color-light-gold);
-    --swiper-navigation-size: 90px;
+    --swiper-navigation-size: 45px;
     --swiper-navigation-sides-offset: 30px;
+    @media (min-width: #{utils.getBreakpoint('lg')}) {
+      --swiper-navigation-size: 90px;
+    }
     width: 100vw;
   }
   .swiper-slide {

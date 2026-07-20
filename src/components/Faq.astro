@@ -1,0 +1,19 @@
+---
+const { question } = Astro.props;
+---
+
+<div class="question">
+  <h3 class="question__title">{question}</h3>
+  <div class="question__answer">
+    <slot />
+  </div>
+</div>
+
+<style lang="scss">
+  .question {
+    margin-bottom: 3em;
+    &__title {
+      font-size: #{utils.makeClamp(18, 24)};
+    }
+  }
+</style>

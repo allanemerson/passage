@@ -28,7 +28,7 @@ const admissionTickets = [
   {
     title: "Early Bird",
     description: [
-      "Buy early and save 20% off the regular price.",
+      "Buy early and save off the regular price.",
       "Entry: 10am Friday September 18.",
     ],
     price: 113.5,
@@ -41,7 +41,7 @@ const admissionTickets = [
       "Three stages, three vibes, and weekend of cutting edge music curated by veteran DJs.",
       "Entry: 10am Friday September 18.",
     ],
-    price: 130.0,
+    price: 0,
     onSaleDate: "2026-08-01",
     available: true,
   },
@@ -139,9 +139,9 @@ const rentalPasses = [
 ];
 ---
 
-<Layout title="Tickets">
+<Layout title="Admission">
   <div class="container">
-    <PageHeader title="Tickets">
+    <PageHeader title="Admission">
       <p>
         This event requires an admission ticket AND a camping pass for each
         attendee, presented at the gate when you arrive.
@@ -166,7 +166,9 @@ const rentalPasses = [
                 ))}
               </div>
               <div class="ticket-card__footer">
-                <p class="ticket-card__price">${ticket.price.toFixed(2)}</p>
+                <p class="ticket-card__price">
+                  {ticket.price > 0 && `$${ticket.price.toFixed(2)}`}
+                </p>
                 <p class="ticket-card__status">
                   {status === "coming-soon" &&
                     `On sale ${formatEasternDate(ticket.onSaleDate)}`}

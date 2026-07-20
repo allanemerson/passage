@@ -1,7 +1,7 @@
 ---
 import { Image, getImage } from "astro:assets";
 import hand from "../assets/images/hand.svg";
-import bg from "../assets/images/bg-about.jpg";
+import bg from "../assets/images/bg-about.webp";
 
 const optimizedBg = await getImage({ src: bg });
 ---
@@ -14,22 +14,23 @@ const optimizedBg = await getImage({ src: bg });
     </div>
     <div class="content">
       <p>
-        Passage is a boutique music festival. But it is also a moment. A deep
-        breath of mindfulness. A milestone to mark the story of your journey
-        with genuine, joyful human connection.
-      </p>
-      <p>
-        We hope that the experiences had on this wild 30 acres of woodland in
-        rural Alabama are a conscious turning of a page for you as it has been
-        for many of us; a Passage from one chapter to the next. Our intentions
-        are powerful, and if we consciously set them for growth, understanding,
-        and rebirth, we can manifest them.
+        Passage Gathering has proven to be - in both name and effect - a
+        catalyst moment. It was created in 2020 as a manifestation of love and a
+        determination to emerge from the cocoon of isolation healthier and more
+        connected to self and friends. The Covid threat was waning, and we
+        needed to be together. That sweet togetherness combined with a
+        collective intention to turn the page to a new era defined - and still
+        defines - the Passage experience as it continues to grow. We hope the
+        experiences had on this beautiful 60 acres are an emergence of spirit
+        for you as they have been for so many during the first 5 years of
+        Passage.
       </p>
       <p>
         From joyful, ecstatic house music to deeply tribal rhythms from beyond
-        the bounds of time, we use sound as a catalyst for it all.
+        the bounds of time, we use sound as a catalyst for it all. Join us and
+        see what unfolds in what is becoming one of the most beloved dance music
+        events in our part of the world.
       </p>
-      <p><em>See you in the woods.</em></p>
     </div>
   </div>
 </section>
@@ -85,9 +86,6 @@ const optimizedBg = await getImage({ src: bg });
   }
 
   p {
-    &:last-child {
-      font-size: #{utils.makeClamp(21, 24)};
-      color: white;
-    }
+    color: white;
   }
 </style>

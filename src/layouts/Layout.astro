@@ -1,5 +1,5 @@
 ---
-import Navigation from "../components/Navigation.astro";
+import Header from "../components/Header.astro";
 import { Font } from "astro:assets";
 let titleParts = ["Passage Gathering"];
 const { title } = Astro.props;
@@ -139,7 +139,7 @@ if (title) {
         </g>
       </symbol>
     </svg>
-    <Navigation />
+    <Header />
     <main>
       <slot />
     </main>
@@ -160,8 +160,7 @@ if (title) {
     --color-light-gray: #4d4c48;
     --color-gray: #181818;
     --block-padding: 30px;
-    --header-height: 400px;
-    --navbar-height: 68px;
+    --navbar-height: 76px;
     --vibe-images-width: 40vw;
     --gutter: 20px;
     --arrow-size: 30px;
@@ -172,6 +171,9 @@ if (title) {
       --gutter: 30px;
       --arrow-size: 50px;
     }
+  }
+  * {
+    box-sizing: border-box;
   }
   html {
     scroll-behavior: smooth;
@@ -184,17 +186,14 @@ if (title) {
     background: var(--color-black);
     font-family: var(--ff-josefin-sans--regular);
     font-size: #{utils.makeRem(21)};
-    line-height: 1.3;
+    line-height: 1.5;
     color: white;
-    padding-top: var(--navbar-height);
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
 
     &.nav-open {
-      overflow: hidden;
-
-      .navigation-items {
-        right: 0;
+      .navigation {
+        left: 0;
       }
     }
   }
@@ -240,7 +239,7 @@ if (title) {
   }
 
   h1 {
-    font-size: #{utils.makeClamp(90, 140)};
+    font-size: #{utils.makeClamp(90, 120)};
   }
   h2 {
     font-size: #{utils.makeClamp(70, 100)};

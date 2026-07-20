@@ -1,0 +1,49 @@
+---
+import { Image } from "astro:assets";
+import poolDeck from "../assets/images/property/pool-deck.webp";
+---
+
+<section class="property" id="property">
+  <div class="container">
+    <h2>The Property</h2>
+    <Image src={poolDeck} class="property__image" alt="Pool deck at FarmCamp" />
+    <div class="property__content">
+      <h3>Welcome to our new home!</h3>
+      <p>
+        Previously, Passage was held on a beautiful morsel of land in East
+        Alabama and gave us some incredible moments, but was getting a bit
+        cramped. As the 2026 reboot approached, we sought a property that was
+        more accessible to more people in our communities and offered more space
+        for us to grow into.
+      </p>
+
+      <p>We found that in the incredible campground FarmCamp.</p>
+
+      <p>
+        51 weeks of the year, FarmCamp is a LGBTQ+ Resort offering a sanctuary
+        for connection and freedom in a part of the world not exactly known for
+        inclusivity. They have our full support and confidence as partners in
+        this new iteration of Passage.
+      </p>
+
+      <p>
+        See more about the property at <a
+          href="https://gofarmcamp.com"
+          target="_blank">gofarmcamp.com</a
+        >
+      </p>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .property {
+    &__image {
+      margin-bottom: 3em;
+    }
+    &__content {
+      max-width: 60ch;
+      margin-inline: auto;
+    }
+  }
+</style>
