@@ -5,6 +5,11 @@ import Gallery from "../components/Gallery.astro";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import Property from "../components/Property.astro";
+
+const imageFiles = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/gallery/*.{jpeg,jpg,png,gif,webp,svg}",
+  { eager: true },
+);
 ---
 
 <Layout>
@@ -12,5 +17,5 @@ import Property from "../components/Property.astro";
   <About />
   <Property />
   <Artists />
-  <Gallery />
+  <Gallery imageFiles={imageFiles} />
 </Layout>

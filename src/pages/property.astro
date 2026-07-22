@@ -1,0 +1,53 @@
+---
+import PageHeader from "../components/PageHeader.astro";
+import Layout from "../layouts/Layout.astro";
+import Gallery from "../components/Gallery.astro";
+import { Image } from "astro:assets";
+import poolDeck from "../assets/images/pool-deck.webp";
+
+const imageFiles = import.meta.glob<{ default: ImageMetadata }>(
+    "/src/assets/images/property/*.{jpeg,jpg,png,gif,webp,svg}",
+    { eager: true },
+);
+---
+
+<Layout title="The Property">
+    <div class="container">
+        <PageHeader title="The Property" />
+        <Image src={poolDeck} class="property__image" alt="Pool deck at FarmCamp" />
+        <div class="property__content">
+            <h3>Welcome to our new home!</h3>
+            <p>
+                Previously, Passage was held on a beautiful morsel of land in East Alabama and gave us some incredible
+                moments, but was getting a bit cramped. As the 2026 reboot approached, we sought a property that was
+                more accessible to more people in our communities and offered more space for us to grow into.
+            </p>
+
+            <p>We found that in the incredible campground Farmcamp.</p>
+
+            <p>
+                Farmcamp is nestled on 60 breathtaking acres along the Chewacla Creek in Tuskegee, Alabama, offering a
+                perfect blend of nature and luxury. With modern bathhouses, custom lighting, and plenty of gathering
+                spaces, you’ll have everything you need to relax by day and vibe by night.
+            </p>
+
+            <p>
+                See more about the property at <a href="https://gofarmcamp.com" target="_blank">gofarmcamp.com</a>
+            </p>
+        </div>
+    </div>
+    <Gallery imageFiles={imageFiles} />
+</Layout>
+
+<style lang="scss">
+    .property {
+        &__image {
+            margin-bottom: 3em;
+        }
+        &__content {
+            max-width: 60ch;
+            margin-bottom: 3em;
+            margin-inline: auto;
+        }
+    }
+</style>

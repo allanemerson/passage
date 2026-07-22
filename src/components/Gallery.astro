@@ -1,26 +1,28 @@
 ---
+import type { ImageMetadata } from "astro";
+interface Props {
+  imageFiles: Record<string, { default: ImageMetadata }>;
+}
 import { Image } from "astro:assets";
 import Previous from "../assets/icons/previous.svg";
 import Next from "../assets/icons/next.svg";
-const imageFiles = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/images/gallery/*.{jpeg,jpg,png,gif,webp,svg}",
-  { eager: true },
-);
+const { imageFiles } = Astro.props as Props;
 const images = Object.values(imageFiles).map((file) => file.default);
 ---
 
-<section id="gallery" class="gallery">
-  <ul class="items">
+<section
+  id="gallery"
+  class="gallery">
+  <ul class="gallery__items">
     {
       images.map((img) => (
-        <li class="item">
+        <li class="gallery__item">
           <button
-            class="item__trigger"
+            class="gallery__trigger"
             popovertarget="gallery-modal"
-            data-index={images.indexOf(img)}
-          >
+            data-index={images.indexOf(img)}>
             <Image
-              class="item__image"
+              class="gallery__image"
               src={img}
               alt=""
               width={300}
@@ -33,13 +35,20 @@ const images = Object.values(imageFiles).map((file) => file.default);
   </ul>
 </section>
 
-<div popover id="gallery-modal">
+<div
+  popover
+  id="gallery-modal">
   <div class="gallery-carousel swiper">
     <div class="swiper-wrapper">
       {
         images.map((img) => (
           <div class="swiper-slide">
-            <Image src={img} alt="Gallery item" width={900} height={900} />
+            <Image
+              src={img}
+              alt="Gallery item"
+              width={900}
+              height={900}
+            />
           </div>
         ))
       }
@@ -54,8 +63,7 @@ const images = Object.values(imageFiles).map((file) => file.default);
   <button
     class="popover__close"
     popovertarget="gallery-modal"
-    popovertargetaction="hide"
-  >
+    popovertargetaction="hide">
     <span class="visually-hidden">Close</span>
     <svg
       width="17"
@@ -78,39 +86,37 @@ const images = Object.values(imageFiles).map((file) => file.default);
 <style lang="scss">
   .gallery {
     padding: 0;
-  }
-  .items {
-    @include utils.resetList;
-    display: grid;
-    gap: 1px;
-    grid-template-columns: repeat(2, 1fr);
+    &__items {
+      @include utils.resetList;
+      display: grid;
+      gap: 1px;
+      grid-template-columns: repeat(3, 1fr);
 
-    @media (min-width: #{utils.getBreakpoint('lg')}) {
-      grid-template-columns: repeat(4, 1fr);
-    }
+      @media (min-width: #{utils.getBreakpoint('lg')}) {
+        grid-template-columns: repeat(4, 1fr);
+      }
 
-    @media (min-width: #{utils.getBreakpoint('xl')}) {
-      grid-template-columns: repeat(8, 1fr);
-    }
-  }
-
-  .item {
-    overflow: hidden;
-  }
-
-  .item__trigger {
-    display: block;
-    width: 100%;
-    &:hover {
-      .item__image {
-        transform: scale(1.1);
+      @media (min-width: #{utils.getBreakpoint('xl')}) {
+        grid-template-columns: repeat(8, 1fr);
       }
     }
-  }
-
-  .item__image {
-    transition: 0.3s;
-    width: 100%;
+    &__item {
+      overflow: hidden;
+    }
+    &__trigger {
+      display: block;
+      width: 100%;
+      cursor: pointer;
+      &:hover {
+        .gallery__image {
+          transform: scale(1.1);
+        }
+      }
+    }
+    &__image {
+      transition: 0.3s;
+      width: 100%;
+    }
   }
 
   [popover] {

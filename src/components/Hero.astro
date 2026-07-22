@@ -4,95 +4,82 @@ import Previous from "../assets/icons/previous.svg";
 import Next from "../assets/icons/next.svg";
 import headerM from "../assets/images/2026/header-m.jpg";
 import headerD from "../assets/images/2026/header-d.jpg";
+import { HERO_ALT } from "../constants";
 
-const imageFiles = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/images/image-strip/*.{jpeg,jpg,png,gif,webp,svg}",
-  { eager: true },
-);
+const imageFiles = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/image-strip/*.{jpeg,jpg,webp}", {
+    eager: true,
+});
 const images = Object.values(imageFiles).map((file) => file.default);
 ---
 
-<header class="hero">
-  <picture>
+<picture class="hero">
     <source srcset={headerD.src} media="(min-width: 768px)" />
-    <img
-      src={headerM.src}
-      width="767"
-      height="767"
-      alt="Passage Gathering 2024, September 27 - 29"
-    />
-  </picture>
-</header>
+    <img src={headerM.src} width="767" height="767" alt={HERO_ALT} />
+</picture>
 <div class="swiper image-strip">
-  <div class="swiper-wrapper">
-    {
-      images.map((img) => (
-        <div class="swiper-slide">
-          <Image
-            class="item__image"
-            src={img}
-            alt=""
-            width={500}
-            height={500}
-          />
-        </div>
-      ))
-    }
-  </div>
-  <div class="swiper-button-prev">
-    <Previous />
-  </div>
-  <div class="swiper-button-next">
-    <Next />
-  </div>
+    <div class="swiper-wrapper">
+        {
+            images.map((img) => (
+                <div class="swiper-slide">
+                    <Image class="item__image" src={img} alt="" width={500} height={500} />
+                </div>
+            ))
+        }
+    </div>
+    <div class="swiper-button-prev">
+        <Previous />
+    </div>
+    <div class="swiper-button-next">
+        <Next />
+    </div>
 </div>
 
 <style lang="scss">
-  .hero {
-    img {
-      width: 100%;
+    .hero {
+        img {
+            width: 100%;
+        }
     }
-  }
-  .image-strip {
-    --swiper-theme-color: var(--color-light-gold);
-    --swiper-navigation-size: 45px;
-    --swiper-navigation-sides-offset: 30px;
-    @media (min-width: #{utils.getBreakpoint('lg')}) {
-      --swiper-navigation-size: 90px;
+    .image-strip {
+        --swiper-theme-color: var(--color-light-gold);
+        --swiper-navigation-size: 45px;
+        --swiper-navigation-sides-offset: 30px;
+        @media (min-width: #{utils.getBreakpoint('lg')}) {
+            --swiper-navigation-size: 90px;
+        }
+        width: 100vw;
     }
-    width: 100vw;
-  }
-  .swiper-slide {
-    width: min(40vw, 500px);
-  }
-  .swiper-button-prev,
-  .swiper-button-next {
-    transition: 0.3s;
-    &:hover {
-      color: white;
+    .swiper-slide {
+        width: min(40vw, 500px);
     }
-  }
+    .swiper-button-prev,
+    .swiper-button-next {
+        transition: 0.3s;
+        &:hover {
+            color: white;
+        }
+    }
 </style>
 
 <script>
-  import Swiper from "swiper";
-  import { Navigation, Autoplay } from "swiper/modules";
-  import "swiper/css";
-  import "swiper/css/navigation";
+    import Swiper from "swiper";
+    import { Navigation, Autoplay } from "swiper/modules";
+    import "swiper/css";
+    import "swiper/css/navigation";
 
-  const swiper = new Swiper(".image-strip", {
-    modules: [Navigation, Autoplay],
-    centeredSlides: true,
-    loop: true,
-    slidesPerView: "auto",
-    spaceBetween: 0,
-    speed: 1200,
-    autoplay: {
-      delay: 2400,
-    },
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-  });
+    const swiper = new Swiper(".image-strip", {
+        modules: [Navigation, Autoplay],
+        centeredSlides: true,
+        loop: true,
+        slidesPerView: "auto",
+        spaceBetween: 0,
+        speed: 1200,
+        autoplay: {
+            delay: 2400,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
 </script>

@@ -1,265 +1,254 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Property from "../components/Property.astro";
 import PageHeader from "../components/PageHeader.astro";
 import Ticket from "../assets/icons/ticket.svg";
 import { TICKET_LINK, EASTERN_TZ } from "../constants.ts";
-import CampingCard from "../components/CampingCard.astro";
+import CampingCard from "../snippets/CampingCard.astro";
 
 // Returns the current date as a YYYY-MM-DD string in Eastern time for comparison.
 const nowEastern = new Date().toLocaleDateString("en-CA", {
-  timeZone: EASTERN_TZ,
+    timeZone: EASTERN_TZ,
 });
 
 function getTicketStatus(ticket: { onSaleDate: string; available: boolean }) {
-  if (ticket.onSaleDate > nowEastern) return "coming-soon";
-  return ticket.available ? "on-sale" : "sold-out";
+    if (ticket.onSaleDate > nowEastern) return "coming-soon";
+    return ticket.available ? "on-sale" : "sold-out";
 }
 
 // Format a YYYY-MM-DD date string for display in Eastern time.
 function formatEasternDate(dateStr: string): string {
-  return new Date(`${dateStr}T12:00:00Z`).toLocaleDateString("en-US", {
-    timeZone: EASTERN_TZ,
-    month: "long",
-    day: "numeric",
-  });
+    return new Date(`${dateStr}T12:00:00Z`).toLocaleDateString("en-US", {
+        timeZone: EASTERN_TZ,
+        month: "long",
+        day: "numeric",
+    });
 }
 
 const admissionTickets = [
-  {
-    title: "Early Bird",
-    description: [
-      "Buy early and save off the regular price.",
-      "Entry: 10am Friday September 18.",
-    ],
-    price: 113.5,
-    onSaleDate: "2026-07-01",
-    available: true,
-  },
-  {
-    title: "General Admission",
-    description: [
-      "Three stages, three vibes, and weekend of cutting edge music curated by veteran DJs.",
-      "Entry: 10am Friday September 18.",
-    ],
-    price: 0,
-    onSaleDate: "2026-08-01",
-    available: true,
-  },
-  {
-    title: "Top Supporter",
-    description: [
-      "Doing well right now and want to contribute a little extra to the Art and Spirit that is Passage Gathering? This is a simple way to do it.",
-      "Get access to the Festival a day early and the Poolside Pre-party Thursday night.",
-      "Entry: 10am Thursday September 17.",
-    ],
-    price: 283.75,
-    onSaleDate: "2026-07-01",
-    available: true,
-  },
+    {
+        title: "Early Bird",
+        description: ["Buy early and save off the regular price.", "Entry: 10am Friday September 18."],
+        price: 113.5,
+        onSaleDate: "2026-07-01",
+        available: true,
+    },
+    {
+        title: "General Admission",
+        description: [
+            "Three stages, three vibes, and weekend of cutting edge music curated by veteran DJs.",
+            "Entry: 10am Friday September 18.",
+        ],
+        price: 0,
+        onSaleDate: "2026-08-01",
+        available: true,
+    },
+    {
+        title: "Top Supporter",
+        description: [
+            "Doing well right now and want to contribute a little extra to the Art and Spirit that is Passage Gathering? This is a simple way to do it.",
+            "Get access to the Festival a day early and the Poolside Pre-party Thursday night.",
+            "Entry: 10am Thursday September 17.",
+        ],
+        price: 283.75,
+        onSaleDate: "2026-07-01",
+        available: true,
+    },
 ];
 const tentPasses = [
-  {
-    title: "Open Camping",
-    description: [
-      "Our most affordable camping pass, grants access to open camping with a variety of sites available along the creek and tucked into the woods.",
-    ],
-    price: 68.1,
-    onSaleDate: "2026-07-01",
-    available: true,
-    parking:
-      "Car camping along the treeline is first come, first served. Other primitive locations will require you to move your car to the designated parking area after you unload your gear.",
-  },
-  {
-    title: "Premium Tent Camping",
-    description: [
-      "Likely to be our most popular camping category. Premium campsites near the center of the festival have power and water hookups dispersed throughout the area. Pop-up canopies are limited to one per group in this area as space is limited and precious.",
-    ],
-    price: 90.8,
-    onSaleDate: "2026-07-01",
-    available: true,
-    parking:
-      "Cars are not allowed to park by the premium camping sites. After your drop off your gear, you will move your car to the parking area.",
-  },
+    {
+        title: "Open Camping",
+        description: [
+            "Our most affordable camping pass, grants access to open camping with a variety of sites available along the creek and tucked into the woods.",
+        ],
+        price: 68.1,
+        onSaleDate: "2026-07-01",
+        available: true,
+        parking:
+            "Car camping along the treeline is first come, first served. Other primitive locations will require you to move your car to the designated parking area after you unload your gear.",
+    },
+    {
+        title: "Premium Tent Camping",
+        description: [
+            "Likely to be our most popular camping category. Premium campsites near the center of the festival have power and water hookups dispersed throughout the area. Pop-up canopies are limited to one per group in this area as space is limited and precious.",
+        ],
+        price: 90.8,
+        onSaleDate: "2026-07-01",
+        available: true,
+        parking:
+            "Cars are not allowed to park by the premium camping sites. After your drop off your gear, you will move your car to the parking area.",
+    },
 ];
 const rvPasses = [
-  {
-    title: "Premium RV Site",
-    description: [
-      "Reservation of a premium RV Site with water and electric hookups. These are back-in sites suitable for large and small RVs.",
-    ],
-    price: 272.4,
-    onSaleDate: "2026-07-01",
-    available: true,
-    guests: 4,
-    guestsDescription: "Includes 4 camping passes for your group.*",
-    parking:
-      "Towing vehicle may remain connected to the RV. Any additional vehicles for your group will be required to park in the designated area.",
-  },
-  {
-    title: "Primitive RV Site",
-    description: [
-      "Reservation of a primitive RV Site with NO hookups. These are best suited for smaller campers, camper vans, and schoolies.",
-    ],
-    price: 136.2,
-    onSaleDate: "2026-07-01",
-    available: true,
-    guests: 2,
-    guestsDescription: "Includes 2 camping passes for your group.*",
-    parking:
-      "Additional vehicles will be required to park in the main parking area.",
-  },
+    {
+        title: "Premium RV Site",
+        description: [
+            "Reservation of a premium RV Site with water and electric hookups. These are back-in sites suitable for large and small RVs.",
+        ],
+        price: 272.4,
+        onSaleDate: "2026-07-01",
+        available: true,
+        guests: 4,
+        guestsDescription: "Includes 4 camping passes for your group.*",
+        parking:
+            "Towing vehicle may remain connected to the RV. Any additional vehicles for your group will be required to park in the designated area.",
+    },
+    {
+        title: "Primitive RV Site",
+        description: [
+            "Reservation of a primitive RV Site with NO hookups. These are best suited for smaller campers, camper vans, and schoolies.",
+        ],
+        price: 136.2,
+        onSaleDate: "2026-07-01",
+        available: true,
+        guests: 2,
+        guestsDescription: "Includes 2 camping passes for your group.*",
+        parking: "Additional vehicles will be required to park in the main parking area.",
+    },
 ];
 const rentalPasses = [
-  {
-    title: "Glamping Tent",
-    description: [
-      "VIP vibes! Reserve 1 of just 5 specialty glamping tents set up for 2 persons. These cabin style tents include a bed, refrigerator, private power access, and portable air conditioner. No joke.",
-    ],
-    price: 454,
-    onSaleDate: "2026-07-01",
-    available: true,
-    guests: 2,
-    guestsDescription: "Includes 2 camping passes for your group.*",
-    parking:
-      "Once you unload in your glamping tent, you will need to move your car to the designated parking area.",
-  },
-  {
-    title: "Tiny House Cabin",
-    description: [
-      "Only 5 cabins are available so these are sure to sell out quickly. These are BRAND NEW at FarmCamp and packed with nice amenities.",
-    ],
-    price: 681,
-    onSaleDate: "2026-07-01",
-    available: true,
-    guests: 3,
-    guestsDescription: "Includes 3 camping passes for your group.*",
-    parking:
-      "Once you unload your gear into the cabin, you will need to move your car to the designated parking area.",
-  },
+    {
+        title: "Glamping Tent",
+        description: [
+            "VIP vibes! Reserve 1 of just 5 specialty glamping tents set up for 2 persons. These cabin style tents include a bed, refrigerator, private power access, and portable air conditioner. No joke.",
+        ],
+        price: 454,
+        onSaleDate: "2026-07-01",
+        available: true,
+        guests: 2,
+        guestsDescription: "Includes 2 camping passes for your group.*",
+        parking:
+            "Once you unload in your glamping tent, you will need to move your car to the designated parking area.",
+    },
+    {
+        title: "Tiny House Cabin",
+        description: [
+            "Only 5 cabins are available so these are sure to sell out quickly. These are BRAND NEW at FarmCamp and packed with nice amenities.",
+        ],
+        price: 681,
+        onSaleDate: "2026-07-01",
+        available: true,
+        guests: 3,
+        guestsDescription: "Includes 3 camping passes for your group.*",
+        parking:
+            "Once you unload your gear into the cabin, you will need to move your car to the designated parking area.",
+    },
 ];
 ---
 
 <Layout title="Admission">
-  <div class="container">
-    <PageHeader title="Admission">
-      <p>
-        This event requires an admission ticket AND a camping pass for each
-        attendee, presented at the gate when you arrive.
-      </p>
-      <p>
-        If your group is arriving separately, make sure everyone has their own
-        ticket and camping pass.
-      </p>
-    </PageHeader>
+    <div class="container">
+        <PageHeader title="Admission">
+            <p>
+                This event requires an admission ticket AND a camping pass for each attendee, presented at the gate when
+                you arrive.
+            </p>
+            <p>If your group is arriving separately, make sure everyone has their own ticket and camping pass.</p>
+        </PageHeader>
 
-    <h2>Admission Tickets</h2>
-    <div class="cards" style="--cols: 3">
-      {
-        admissionTickets.map((ticket) => {
-          const status = getTicketStatus(ticket);
-          return (
-            <div class={`ticket-card ${status}`}>
-              <h3 class="ticket-card__title">{ticket.title}</h3>
-              <div class="ticket-card__description">
-                {ticket.description.map((line) => (
-                  <p>{line}</p>
-                ))}
-              </div>
-              <div class="ticket-card__footer">
-                <p class="ticket-card__price">
-                  {ticket.price > 0 && `$${ticket.price.toFixed(2)}`}
-                </p>
-                <p class="ticket-card__status">
-                  {status === "coming-soon" &&
-                    `On sale ${formatEasternDate(ticket.onSaleDate)}`}
-                  {status === "on-sale" && "On Sale"}
-                  {status === "sold-out" && "Sold Out"}
-                </p>
-              </div>
-            </div>
-          );
-        })
-      }
-    </div>
-    <h2>Camping Passes</h2>
+        <h2>Admission Tickets</h2>
+        <div class="cards" style="--cols: 3">
+            {
+                admissionTickets.map((ticket) => {
+                    const status = getTicketStatus(ticket);
+                    return (
+                        <div class={`ticket-card ${status}`}>
+                            <h3 class="ticket-card__title">{ticket.title}</h3>
+                            <div class="ticket-card__description">
+                                {ticket.description.map((line) => (
+                                    <p>{line}</p>
+                                ))}
+                            </div>
+                            <div class="ticket-card__footer">
+                                <p class="ticket-card__price">{ticket.price > 0 && `$${ticket.price.toFixed(2)}`}</p>
+                                <p class="ticket-card__status">
+                                    {status === "coming-soon" && `On sale ${formatEasternDate(ticket.onSaleDate)}`}
+                                    {status === "on-sale" && "On Sale"}
+                                    {status === "sold-out" && "Sold Out"}
+                                </p>
+                            </div>
+                        </div>
+                    );
+                })
+            }
+        </div>
+        <h2>Camping Passes</h2>
 
-    <h3 class="cards-title">Tent Camping</h3>
-    <div class="cards" style="--cols: 2">
-      {
-        tentPasses.map((ticket) => {
-          const status = getTicketStatus(ticket);
-          return <CampingCard ticket={ticket} status={status} />;
-        })
-      }
-    </div>
-    <h3 class="cards-title">RVs</h3>
-    <div class="cards" style="--cols: 2">
-      {
-        rvPasses.map((ticket) => {
-          const status = getTicketStatus(ticket);
-          return <CampingCard ticket={ticket} status={status} />;
-        })
-      }
-    </div>
-    <h3 class="cards-title">Rentals</h3>
-    <div class="cards" style="--cols: 2">
-      {
-        rentalPasses.map((ticket) => {
-          const status = getTicketStatus(ticket);
-          return <CampingCard ticket={ticket} status={status} />;
-        })
-      }
-    </div>
+        <h3 class="cards-title">Tent Camping</h3>
+        <div class="cards" style="--cols: 2">
+            {
+                tentPasses.map((ticket) => {
+                    const status = getTicketStatus(ticket);
+                    return <CampingCard ticket={ticket} status={status} />;
+                })
+            }
+        </div>
+        <h3 class="cards-title">RVs</h3>
+        <div class="cards" style="--cols: 2">
+            {
+                rvPasses.map((ticket) => {
+                    const status = getTicketStatus(ticket);
+                    return <CampingCard ticket={ticket} status={status} />;
+                })
+            }
+        </div>
+        <h3 class="cards-title">Rentals</h3>
+        <div class="cards" style="--cols: 2">
+            {
+                rentalPasses.map((ticket) => {
+                    const status = getTicketStatus(ticket);
+                    return <CampingCard ticket={ticket} status={status} />;
+                })
+            }
+        </div>
+        <div class="tickets-cta">
+            <a href={TICKET_LINK} class="btn" target="_blank">
+                <Ticket />
+                Buy Tickets
+            </a>
+        </div>
 
-    <div class="tickets-cta">
-      <a href={TICKET_LINK} class="btn" target="_blank">
-        <Ticket />
-        Buy Tickets
-      </a>
-    </div>
-    <p class="disclaimer">
-      * RV and Rental Passes: if you have more than the included number of
-      guests in your group, each additional person will need to purchase an Open
-      Camping Pass. If you have less, then the additional passes are forfeited
-      and non-transferrable.
-    </p>
+        <Property />
 
-    <p class="disclaimer">
-      Passage is a rain or shine event. Check-out is Monday September 21, no
-      later than noon.
-    </p>
-    <p class="disclaimer">
-      Other ticket conditions apply. See ticket details for more information.
-    </p>
-  </div>
+        <p class="disclaimer">
+            * RV and Rental Passes: if you have more than the included number of guests in your group, each additional
+            person will need to purchase an Open Camping Pass. If you have less, then the additional passes are
+            forfeited and non-transferrable.
+        </p>
+
+        <p class="disclaimer">
+            Passage is a rain or shine event. Check-out is Monday September 21, no later than noon.
+        </p>
+        <p class="disclaimer">Other ticket conditions apply. See ticket details for more information.</p>
+    </div>
 </Layout>
 <style lang="scss">
-  .cards-title {
-    margin-bottom: 0.5em;
-    @media (max-width: #{utils.getMaxBreakpoint('lg')}) {
-      text-align: center;
+    .cards-title {
+        margin-bottom: 0.5em;
+        @media (max-width: #{utils.getMaxBreakpoint('lg')}) {
+            text-align: center;
+        }
     }
-  }
-  .cards {
-    display: grid;
-    gap: 12px;
-    margin-top: #{utils.makeClamp(20, 40)};
-    margin-bottom: #{utils.makeClamp(30, 100)};
-    @media (min-width: #{utils.getBreakpoint('lg')}) {
-      grid-template-columns: repeat(var(--cols), 1fr);
+    .cards {
+        display: grid;
+        gap: 12px;
+        margin-top: #{utils.makeClamp(20, 40)};
+        margin-bottom: #{utils.makeClamp(30, 60)};
+        @media (min-width: #{utils.getBreakpoint('lg')}) {
+            grid-template-columns: repeat(var(--cols), 1fr);
+        }
     }
-  }
-  .tickets-cta {
-    background: rgb(255 255 255 / 0.05);
-    text-align: center;
-    padding: 2em;
-    border-radius: 8px;
-    margin-bottom: #{utils.makeClamp(30, 100)};
-  }
-  .disclaimer {
-    text-wrap: balance;
-    text-align: center;
-    font-size: #{utils.makeRem(16)};
-    opacity: 0.9;
-  }
+    .tickets-cta {
+        background: rgb(255 255 255 / 0.05);
+        text-align: center;
+        padding: 2em;
+        border-radius: 8px;
+        margin-bottom: #{utils.makeClamp(30, 100)};
+    }
+    .disclaimer {
+        text-wrap: balance;
+        text-align: center;
+        font-size: #{utils.makeRem(16)};
+        opacity: 0.9;
+    }
 </style>

@@ -7,40 +7,45 @@ const optimizedBg = await getImage({ src: bg });
 ---
 
 <section id="about" class="about" style={`--bgUrl: url(${optimizedBg.src});`}>
-  <h2>About</h2>
   <div class="container">
-    <div class="img">
-      <Image src={hand} alt="" role="presentation" />
+    <h2>About</h2>
+    <div class="new-features">
+      <ul class="new-features__items">
+        <li class="new-features__item">3 days and nights of dance music</li>
+        <li class="new-features__item">Diverse programming</li>
+        <li class="new-features__item">3 unique stages</li>
+        <li class="new-features__item">Variety of camping options</li>
+        <li class="new-features__item">Luxury amenities</li>
+      </ul>
     </div>
-    <div class="content">
-      <p>
-        Passage Gathering has proven to be - in both name and effect - a
-        catalyst moment. It was created in 2020 as a manifestation of love and a
-        determination to emerge from the cocoon of isolation healthier and more
-        connected to self and friends. The Covid threat was waning, and we
-        needed to be together. That sweet togetherness combined with a
-        collective intention to turn the page to a new era defined - and still
-        defines - the Passage experience as it continues to grow. We hope the
-        experiences had on this beautiful 60 acres are an emergence of spirit
-        for you as they have been for so many during the first 5 years of
-        Passage.
-      </p>
-      <p>
-        From joyful, ecstatic house music to deeply tribal rhythms from beyond
-        the bounds of time, we use sound as a catalyst for it all. Join us and
-        see what unfolds in what is becoming one of the most beloved dance music
-        events in our part of the world.
-      </p>
-    </div>
+    <p>
+      Passage Gathering has proven to be - in both name and effect - a catalyst moment. It was created in 2020 as a
+      manifestation of love and a determination to emerge from the cocoon of isolation healthier and more connected to
+      self and friends.
+    </p>
+
+    <p>
+      The Covid threat was waning, and we needed to be together. That sweet togetherness combined with a collective
+      intention to turn the page to a new era defined - and still defines - the Passage experience as it continues to
+      grow. We hope the experiences had on this beautiful 60 acres are an emergence of spirit for you as they have been
+      for so many during the first 5 years of Passage.
+    </p>
+    <p>
+      From joyful, ecstatic house music to deeply tribal rhythms from beyond the bounds of time, we use sound as a
+      catalyst for it all. Join us and see what unfolds in what is becoming one of the most beloved dance music events
+      in our part of the world.
+    </p>
   </div>
 </section>
 
 <style lang="scss">
   .about {
+    --container-max-width: 70ch;
     background: var(--bgUrl) center center no-repeat;
     background-size: cover;
-    color: var(--color-light-gold);
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+    color: white;
+    isolation: isolate;
 
     @media (min-width: #{utils.getBreakpoint('lg')}) {
       background-attachment: fixed;
@@ -51,28 +56,10 @@ const optimizedBg = await getImage({ src: bg });
       width: 100%;
       height: 100%;
       position: absolute;
-      z-index: 1;
+      z-index: -1;
       left: 0;
       top: 0;
       background: rgba(0, 0, 0, 0.3);
-    }
-  }
-
-  .container {
-    position: relative;
-    z-index: 2;
-
-    @media (min-width: #{utils.getBreakpoint('lg')}) {
-      display: flex;
-      gap: 75px;
-
-      .img {
-        width: 321px;
-      }
-
-      .content {
-        flex: 1;
-      }
     }
   }
 
@@ -80,12 +67,26 @@ const optimizedBg = await getImage({ src: bg });
     color: white;
   }
 
-  .img {
-    width: 30vw;
-    margin-inline: auto;
-  }
-
-  p {
-    color: white;
+  .new-features {
+    margin-block: 1.5em;
+    &__title {
+      font-size: #{utils.makeClamp(18, 24)};
+      text-align: center;
+    }
+    &__items {
+      @include utils.resetList;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.25em 1em;
+      font-size: #{utils.makeClamp(12, 14)};
+      text-transform: uppercase;
+      letter-spacing: 0.5ex;
+    }
+    &__item {
+      padding: 1em;
+      line-height: 1;
+    }
   }
 </style>

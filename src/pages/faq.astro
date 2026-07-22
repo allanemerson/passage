@@ -1,157 +1,130 @@
 ---
 import PageHeader from "../components/PageHeader.astro";
 import Layout from "../layouts/Layout.astro";
-import Faq from "../components/Faq.astro";
+import Faq from "../snippets/Faq.astro";
 ---
 
 <Layout title="FAQs">
-  <div class="container">
-    <PageHeader title="Frequently Asked Questions" />
-    <Faq question="Where is it?">
-      <p>
-        FarmCamp is located at <a
-          href="https://maps.app.goo.gl/ugQjvmcDP8rrVvndA"
-          target="_blank">826 Co Rd 27, Tuskegee, AL 36083</a
-        >. More information on the property can be found at <a
-          href="https://gofarmcamp.com"
-          target="_blank">gofarmcamp.com</a
-        >. Reservations for Passage must be made through the Shotgun ticketing
-        platform.
-      </p>
-      <p>
-        Reservations made through the FarmCamp website for the dates of Passage
-        will not be honored.
-      </p>
-    </Faq>
-    <Faq
-      question="I heard that it’s pretty remote, so what about the facilities?"
-    >
-      <p>
-        At our previous property, there were very few creature comforts and
-        attendees were expected to provide virtually everything themselves. At
-        Farmcamp, you will still be camping, but it's more of a camping resort
-        than a raw property. Features include:
-      </p>
-      <ul>
-        <li>
-          A beautifully designed bath house with both private and shared
-          showers, air conditioning, and lockers
-        </li>
-        <li>A full service bar</li>
-        <li>Integrated filtered water system</li>
-        <li>
-          RV sites and primitive camping with access to power hookups and water
-        </li>
-        <li>Glamping tents and Cabins for rent</li>
-        <li>Plenty of space for car camping and tent-only camping</li>
-        <li>Pool and In-ground hot tub</li>
-      </ul>
-    </Faq>
-    <Faq question="Is Passage a Burn?">
-      <p>
-        In short, No. Passage has always abided the 11 principles, burned an
-        effigy, and bore the Punk Rock ethos of its founders, but lacked some
-        essential burn mechanics, like theme camps.  This year, we are
-        consciously making a decision to leave the semblance of being a boutique
-        burn behind, leaning into the full-scale curation of the event and
-        embracing a cash bar, merch sales, etc. We are burners at heart and will
-        always participate in regional burns when feasible for us, but Passage
-        is in a category all its own. That said, the Principles are still at the
-        core of this event. Radical Inclusion, Immediacy, Radical Self-reliance,
-        Civic Responsibility, Communal effort, LNT, Immediacy, Radical Self
-        Expression, Consent as Sacred Responsibility. Read the principles, use
-        your head and your heart, take care of one another.
-      </p>
-    </Faq>
-    <Faq question="What should I bring?">
-      <p>
-        In short, everything you'll need to survive and thrive in the woods for
-        a weekend. It will be hot during the day and short sleeve cool at night.
-      </p>
-    </Faq>
-    <Faq question="Will there be food vendors?">
-      <p>
-        We are still working on the answer to this question. We may have a
-        couple of food trucks, but you should plan to bring meals and a way to
-        prepare them.
-      </p>
-    </Faq>
-    <Faq question="What’s the alcohol situation?">
-      <p>
-        There will be a full service bar open for service a good portion of the
-        weekend, You’re ALSO welcome to bring whatever alcoholic beverages you’d
-        like and share at your pleasure! Please no glass bottles at all,
-        anywhere, and no littering, please and thank you.
-      </p>
-    </Faq>
-    <Faq question="Wait, what about water?">
-      <p>
-        You should bring what you think you'll need, however, there will be
-        refill coolers scattered around the area where you can fill your water
-        bottle or have a quick drink. The main pavilion (Showers, Bar, Pool) has
-        a filtered water system, so the tap water is perfectly safe to drink!
-      </p>
-    </Faq>
-    <Faq question="Will there be cell service on the property?">
-      <p>Cell service is fine.</p>
-    </Faq>
-    <Faq question="What if it rains?">
-      <p>
-        We will certainly get wet! Bring rain gear, umbrellas, and pop-up
-        canopies to get out of the rain if you’re particularly sensitive to it.
-        There are also some common areas to huddle out of the rain, in several
-        different locations. The party will go on, barring a severe
-        thunderstorm. If lightning gets intense, we recommend you sit in your
-        car to wait it out. That’s worst case scenario. Unfortunately, this
-        comes with the territory of underground camping festivals.
-      </p>
-      <p>Submit to the moment and let’s make some memories.</p>
-    </Faq>
-    <Faq
-      question="I need to arrive after the posted 9pm gate closing, can I still get in?"
-    >
-      <p>
-        Yes! We <strong>strongly</strong> recommend you get there before dark so
-        you can get the lay of the land before liftoff. But we know that’s not
-        possible for everyone. If you get there after dark, just follow the
-        signs and instructions provided to you at the gate. Piece of cake.
-      </p>
-    </Faq>
-    <Faq question="Can I bring my kids?">
-      <p>Passage is a 21+ event, no exceptions.</p>
-    </Faq>
-    <Faq question="Can I bring my dog?">
-      <p>
-        Nope. While we love the furry friends as much as anyone, pets are not
-        allowed at Passage for a robust list of reasons. If your dog is a
-        service animal, however, it is welcome to accompany you in that
-        capacity.
-      </p>
-    </Faq>
-    <Faq question="Can I bring my flow/fire toys?">
-      <p>
-        Hell yes! If you intend to spin fire, please touch base with us so we
-        can put you in touch with our fire performance leads who will have final
-        say on permission, protocol, and fire circle mechanics.
-      </p>
-    </Faq>
-    <Faq question="Can I invite my friends?">
-      <p>
-        Yes! If you’ve been invited to this event, we trust you to invite people
-        who you believe are well suited.
-      </p>
-    </Faq>
-    <Faq question="Can I bring my RV?">
-      <p>
-        Yes! you wIll need to purchase an RV pass alongside your Admission
-        Ticket.
-      </p>
-    </Faq>
+    <div class="container">
+        <PageHeader title="Frequently Asked Questions" />
+        <Faq question="Where is it?">
+            <p>
+                FarmCamp is located at <a href="https://maps.app.goo.gl/ugQjvmcDP8rrVvndA" target="_blank"
+                    >826 Co Rd 27, Tuskegee, AL 36083</a
+                >. More information on the property can be found at <a href="https://gofarmcamp.com" target="_blank"
+                    >gofarmcamp.com</a
+                >. Reservations for Passage must be made through the Shotgun ticketing platform.
+            </p>
+            <p>Reservations made through the FarmCamp website for the dates of Passage will not be honored.</p>
+        </Faq>
+        <Faq question="I heard that it’s pretty remote, so what about the facilities?">
+            <p>
+                At our previous property, there were very few creature comforts and attendees were expected to provide
+                virtually everything themselves. At Farmcamp, you will still be camping, but it's more of a camping
+                resort than a raw property. Features include:
+            </p>
+            <ul>
+                <li>
+                    A beautifully designed bath house with both private and shared showers, air conditioning, and
+                    lockers
+                </li>
+                <li>A full service bar</li>
+                <li>Integrated filtered water system</li>
+                <li>RV sites and primitive camping with access to power hookups and water</li>
+                <li>Glamping tents and Cabins for rent</li>
+                <li>Plenty of space for car camping and tent-only camping</li>
+                <li>Pool and In-ground hot tub</li>
+            </ul>
+        </Faq>
+        <Faq question="Is Passage a Burn?">
+            <p>
+                In short, No. Passage has always abided the 11 principles, burned an effigy, and bore the Punk Rock
+                ethos of its founders, but lacked some essential burn mechanics, like theme camps.  This year, we are
+                consciously making a decision to leave the semblance of being a boutique burn behind, leaning into the
+                full-scale curation of the event and embracing a cash bar, merch sales, etc. We are burners at heart and
+                will always participate in regional burns when feasible for us, but Passage is in a category all its
+                own. That said, the Principles are still at the core of this event. Radical Inclusion, Immediacy,
+                Radical Self-reliance, Civic Responsibility, Communal effort, LNT, Immediacy, Radical Self Expression,
+                Consent as Sacred Responsibility. Read the principles, use your head and your heart, take care of one
+                another.
+            </p>
+        </Faq>
+        <Faq question="What should I bring?">
+            <p>
+                In short, everything you'll need to survive and thrive in the woods for a weekend. It will be hot during
+                the day and short sleeve cool at night.
+            </p>
+        </Faq>
+        <Faq question="Will there be food vendors?">
+            <p>
+                We are still working on the answer to this question. We may have a couple of food trucks, but you should
+                plan to bring meals and a way to prepare them.
+            </p>
+        </Faq>
+        <Faq question="What’s the alcohol situation?">
+            <p>
+                There will be a full service bar open for service a good portion of the weekend, You’re ALSO welcome to
+                bring whatever alcoholic beverages you’d like and share at your pleasure! Please no glass bottles at
+                all, anywhere, and no littering, please and thank you.
+            </p>
+        </Faq>
+        <Faq question="Wait, what about water?">
+            <p>
+                You should bring what you think you'll need, however, there will be refill coolers scattered around the
+                area where you can fill your water bottle or have a quick drink. The main pavilion (Showers, Bar, Pool)
+                has a filtered water system, so the tap water is perfectly safe to drink!
+            </p>
+        </Faq>
+        <Faq question="Will there be cell service on the property?">
+            <p>Cell service is fine.</p>
+        </Faq>
+        <Faq question="What if it rains?">
+            <p>
+                We will certainly get wet! Bring rain gear, umbrellas, and pop-up canopies to get out of the rain if
+                you’re particularly sensitive to it. There are also some common areas to huddle out of the rain, in
+                several different locations. The party will go on, barring a severe thunderstorm. If lightning gets
+                intense, we recommend you sit in your car to wait it out. That’s worst case scenario. Unfortunately,
+                this comes with the territory of underground camping festivals.
+            </p>
+            <p>Submit to the moment and let’s make some memories.</p>
+        </Faq>
+        <Faq question="I need to arrive after the posted 9pm gate closing, can I still get in?">
+            <p>
+                Yes! We <strong>strongly</strong> recommend you get there before dark so you can get the lay of the land
+                before liftoff. But we know that’s not possible for everyone. If you get there after dark, just follow
+                the signs and instructions provided to you at the gate. Piece of cake.
+            </p>
+        </Faq>
+        <Faq question="Can I bring my kids?">
+            <p>Passage is a 21+ event, no exceptions.</p>
+        </Faq>
+        <Faq question="Can I bring my dog?">
+            <p>
+                Nope. While we love the furry friends as much as anyone, pets are not allowed at Passage for a robust
+                list of reasons. If your dog is a service animal, however, it is welcome to accompany you in that
+                capacity.
+            </p>
+        </Faq>
+        <Faq question="Can I bring my flow/fire toys?">
+            <p>
+                Hell yes! If you intend to spin fire, please touch base with us so we can put you in touch with our fire
+                performance leads who will have final say on permission, protocol, and fire circle mechanics.
+            </p>
+        </Faq>
+        <Faq question="Can I invite my friends?">
+            <p>
+                Yes! If you’ve been invited to this event, we trust you to invite people who you believe are well
+                suited.
+            </p>
+        </Faq>
+        <Faq question="Can I bring my RV?">
+            <p>Yes! you wIll need to purchase an RV pass alongside your Admission Ticket.</p>
+        </Faq>
 
-    <style lang="scss">
-      .container {
-        max-width: 800px;
-      }
-    </style>
-  </div>
+        <style lang="scss">
+            .container {
+                max-width: 800px;
+            }
+        </style>
+    </div>
 </Layout>
