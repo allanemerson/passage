@@ -1,0 +1,27 @@
+---
+import PageHeader from "../components/PageHeader.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Waiver Confirmation">
+    <div class="container">
+        <PageHeader title="Success" />
+
+        <h2>Thank you, your waiver has been received.</h2>
+        <p>Remember, every attendee needs to complete their own waiver.</p>
+        <a href="/waiver" class="btn">Submit Another Waiver</a>
+    </div>
+</Layout>
+
+<style lang="scss">
+    .container {
+        max-width: 75ch;
+        font-size: #{utils.makeClamp(14, 16)};
+        text-align: center;
+        padding-bottom: 20vw;
+    }
+    h2 {
+        font-family: var(--ff-josefin-sans--regular);
+        font-size: #{utils.makeClamp(24, 36)};
+    }
+</style>
