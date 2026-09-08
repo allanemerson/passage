@@ -590,6 +590,9 @@ const states = [
         }
     }
     .input {
+        @media (max-width: #{utils.getMaxBreakpoint('lg')}) {
+            font-size: #{utils.makeRem(16)};
+        }
         &--select {
             border: 0;
             padding: 1em;
@@ -621,7 +624,11 @@ const states = [
             margin: 0;
         }
     }
-    input[type="date"]::-webkit-calendar-picker-indicator {
-        filter: invert(1);
+    input[type="date"] {
+        width: 100%;
+        max-width: 100%;
+        &::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
     }
 </style>
