@@ -7,15 +7,15 @@ import Hero from "../components/Hero.astro";
 import Property from "../components/Property.astro";
 
 const imageFiles = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/images/gallery/*.{jpeg,jpg,png,gif,webp,svg}",
-  { eager: true },
+    "/src/assets/images/gallery/*.{jpeg,jpg,png,gif,webp,svg}",
+    { eager: true },
 );
 ---
 
 <Layout>
-  <Hero />
-  <About />
-  <Property />
-  <Artists />
-  <Gallery imageFiles={imageFiles} />
+    <Hero />
+    <About />
+    <Property />
+    <Artists />
+    <Gallery imageFiles={imageFiles} />
 </Layout>

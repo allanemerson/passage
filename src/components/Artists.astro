@@ -46,6 +46,7 @@ const artists: string[] = [
                         <li>{artist}</li>
                     ))}
                 </ul>
+                <a href="/schedule" class="btn btn--secondary">Performance Schedule</a>
             )
         }
         {artists.length === 0 && <p class="placeholder">Coming soon</p>}
@@ -91,6 +92,7 @@ const artists: string[] = [
         justify-content: center;
         font-size: #{utils.makeClamp(18, 25)};
         text-shadow: 0 0px 20px rgba(0, 0, 0, 0.9);
+        margin-bottom: #{utils.makeClamp(20, 40)};
     }
 
     .placeholder {

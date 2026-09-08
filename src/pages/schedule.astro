@@ -1,0 +1,26 @@
+---
+import PageHeader from "../components/PageHeader.astro";
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import thursday from "../assets/images/2026/schedule-thursday.webp";
+import friday from "../assets/images/2026/schedule-friday.webp";
+import saturday from "../assets/images/2026/schedule-saturday.webp";
+import sunday from "../assets/images/2026/schedule-sunday.webp";
+---
+
+<Layout title="Schedule">
+    <div class="container">
+        <PageHeader title="Schedule" />
+        <Image src={thursday} class="schedule-poster" alt="Thursday" />
+        <Image src={friday} class="schedule-poster" alt="Friday" />
+        <Image src={saturday} class="schedule-poster" alt="Saturday" />
+        <Image src={sunday} class="schedule-poster" alt="Sunday" />
+    </div>
+</Layout>
+
+<style lang="scss">
+    .schedule-poster {
+        margin-bottom: 3em;
+        margin-inline: auto;
+    }
+</style>
